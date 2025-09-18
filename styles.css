@@ -1,0 +1,142 @@
+/* Movie Club Selector – mobile-first, accessible styles */
+:root{
+  --bg: #0b0d10;
+  --bg-card: #12161b;
+  --text: #eef2f7;
+  --muted: #b7c2d0;
+  --accent: #79b8ff;
+  --accent-2: #9ae6b4;
+  --focus: #ffd166;
+  --border: #1f2630;
+  --shadow: rgba(0,0,0,.4);
+  --radius: 16px;
+  --space: 12px;
+  --space-lg: 18px;
+  --space-xl: 28px;
+  --font: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Arial, sans-serif;
+}
+
+[data-theme="light"]{
+  --bg:#f7fafc;
+  --bg-card:#ffffff;
+  --text:#0b0d10;
+  --muted:#4a5568;
+  --accent:#2563eb;
+  --accent-2:#059669;
+  --focus:#db2777;
+  --border:#e2e8f0;
+  --shadow: rgba(0,0,0,.08);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+
+.skip-link{
+  position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;
+}
+.skip-link:focus{
+  position:static;width:auto;height:auto;padding:8px 12px;background:var(--focus);color:#000;display:inline-block;margin:8px;
+}
+
+.site-header, .site-footer{
+  padding: var(--space-xl) var(--space);
+}
+.site-header{
+  display:flex;align-items:center;justify-content:space-between;gap:var(--space);
+}
+.brand h1{margin:0 0 6px 0;font-size:1.5rem}
+.brand p{margin:0;color:var(--muted)}
+
+.header-actions{display:flex;gap:8px}
+.btn{
+  border:1px solid var(--border);
+  background:var(--bg-card);
+  color:var(--text);
+  padding:10px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  box-shadow:0 1px 1px var(--shadow);
+  min-height:44px; /* touch size */
+}
+.btn.primary{background:var(--accent);color:#fff;border-color:transparent}
+.btn:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+.layout{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:var(--space);
+  padding: var(--space);
+  max-width:1000px;
+  margin:0 auto;
+}
+
+.card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:var(--space-lg);
+  box-shadow:0 6px 16px var(--shadow);
+}
+
+.search-form{
+  display:grid;grid-template-columns:1fr;gap:8px;align-items:end;
+}
+.search-form label{font-weight:600}
+.search-form input, .search-form select{
+  width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text);
+  min-height:44px;
+}
+
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+
+.status{color:var(--muted);margin:8px 0 0}
+
+.movie-list .list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.item{
+  display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;
+  padding:10px;border:1px solid var(--border);border-radius:12px;
+}
+.poster{width:48px;height:48px;display:grid;place-items:center;font-size:24px;background:rgba(255,255,255,.04);border-radius:10px}
+.meta .title{margin:0;font-size:1.05rem}
+.meta .sub{margin:2px 0 0;color:var(--muted);font-size:.95rem}
+.actions .check-wrap{display:flex;align-items:center;gap:8px}
+.actions input[type="checkbox"]{width:22px;height:22px}
+
+.selected-list{margin:0;padding-left:20px}
+.selected-list li{margin:4px 0}
+
+.add-form{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.add-form .field{display:flex;flex-direction:column}
+.add-form input{padding:12px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text);min-height:44px}
+.add-form button{grid-column:1/-1}
+
+@media (min-width: 720px){
+  .layout{
+    grid-template-columns:2fr 1fr;
+    grid-template-areas:
+      "controls selected"
+      "movies selected"
+      "add selected";
+  }
+  .controls{grid-area:controls}
+  .movie-list{grid-area:movies}
+  .selected{grid-area:selected; position:sticky; top:10px; align-self:start}
+  .add{grid-area:add}
+  .site-header .brand h1{font-size:1.9rem}
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important; transition:none !important}
+}
+
+/* Focus visible for all interactive */
+:where(a,button,input,select):focus-visible{outline:3px solid var(--focus);outline-offset:2px}
